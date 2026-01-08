@@ -1,0 +1,89 @@
+body{
+	font-family: Georgia, serif;
+	margin: 0;
+	background: linear-gradient(to bottom, lightpink,deeppink);
+
+
+}
+.navbar {
+
+	background: linear-gradient(135deg,deeppink,hotpink);
+	padding: 18px 0;
+	text-align: center;
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+
+}
+.navbar a {
+	display: inline-block;
+	padding: 12px 22px;
+	margin: 0 8px;
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+	border-radius: 25px;
+	transition: all 0.3s ease;
+}
+.navbar a:hover {
+	background-color: white;
+	color: deepink;
+	transform: translateY(-3px);
+
+}
+.container{
+	display: flex;
+	justify-content: space-between;
+	padding: 60px;
+	background-color: white;
+	margin: 40px;
+	border-radius: 25px;
+}
+.text-section{
+	width: 55%;
+
+	
+}
+.text-section h1 {
+	color: black;
+	font-size: 40px;
+}
+.text-section h2 {
+	color: lightpink;
+	font-size: 50px;
+	font-style: italic;
+
+}
+.text-section p{
+	font-size: 16px;
+	line-height: 1.6;
+	color: black;
+}
+
+.image-section {
+	width: 35%;
+	background-color: brown;
+	padding: 20px;
+	border-radius: 20px;
+	text-align: center;
+	color: whitesmoke;
+}
+.image-section img{
+	width: 100%;
+	border-radius: 14px;
+
+}
+
+.image-section h3{
+	margin-top: 15px;
+
+}
+.footer {
+	background: lightpink;
+	color: white;
+	text-align: center;
+	padding: 25px 0;
+	font-size: 15px;
+	letter-spacing: 1px;
+	border-top: 3px solid mistyrose;
