@@ -1,0 +1,151 @@
+<!DOCTYPE html > 
+<html> 
+<head>
+	<title> Favourite </title>
+	<link rel="stylesheet" href="styles.css">
+
+	<style>
+		body {
+			background: linear-gradient(to bottom, lightpink,deeppink);
+			font-family: 'georgia', serif;
+			margin: 0;
+		}
+
+		.favourites-header {
+			text-align: center;
+			padding: 50px 20px;
+		}
+
+		.favourites-header h1{
+    		font-size: 48px;
+    		color: maroon;
+    		margin-bottom: 15px;
+    	}
+    	.container {
+    		max-width: 1100px;
+			margin: 0 auto;
+			padding: 40px 20px;
+			text-align: center;
+		} 
+		.intro-text{
+			font-size: 16px;
+			max-width: 600px;
+			margin: 0 auto 40px auto;
+			color: black;
+		}
+		.favourites-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit,minmax(220px, 1fr));
+			gap: 30px;
+			justify-items: center;
+		}
+
+		.fav-card{
+			background: beige;
+			width: 260px;
+			padding: 25px;
+			text-align: center;
+			transition: all 0.4s ease;
+		} 
+
+		.fav-card:hover {
+			transform: translate(-12px) scale(1.05);
+		}
+
+		.fav-card img {
+			width: 140px;
+			height: 140px;
+			object-fit: cover;
+			border-radius: 20px;
+		}
+		.fav-card h3{
+			color: lightblue;
+			margin-bottom: 8px;
+		} 
+		.fav-card p {
+			font-size: 14px;
+			color: darkolivegreen;
+
+		}
+		.audio {
+			margin-top: 10px;
+			width: 100%;
+
+		}
+		.footer {
+			background: hotpink;
+			text-align: center;
+			padding: 10px;
+			color: white;
+		}
+
+	</style>
+</head>
+
+<body> 
+
+<div class="navbar">
+    <a href="index.html"> Home </a>
+    <a href="aboutme.html"> About me </a>
+	<a href="family.html"> My Family </a>
+    <a href="education.html"> Education </a>
+    <a href="friends.html"> Friends </a>
+    <a href="favourites.html"> Favourites </a>
+    <a href="gallery.html"> Gallery </a>
+    <a href="experience.html"> Experience </a>
+    
+</div> 
+
+<div class="favourites-header">
+    <h1> FAVOURITES </h1>
+</div>
+
+	<div class="favourites-grid">
+
+		<div class="fav-card">
+			<img src="image/food.jpg">
+			<h3> My Favourite Food </h3>
+			<p> It tastes smooth, creamy and simply satisfying </p>
+	</div>
+
+	<div class="fav-card">
+
+		<audio id="mysong" preload="auto">
+			<source src="audio/song.mp3" type="audio/mpeg">
+		</audio>
+		
+		<img src="image/lagu1.jpg" onclick="document.getElementById('mysong').play()">
+		<h3> Favourite songs </h3>
+		<p> This songs reminds me of someone.... </p>
+	</div>
+
+	<div class="fav-card">
+		<img src="image/badminton.jpg">
+		<h3> Favourite Hobby </h3>
+		<p> Enjoyed my free time with playing badminton  </p>
+	</div>
+
+	<div class="fav-card">
+		<img src="image/movie.jpg">
+		<h3> Favourite Movie </h3>
+		<p> I like this movie! because it gives me goosebumps 
+		</p>
+
+	</div>
+
+	<div class="fav-card">
+		<img src="image/drink.jpg">
+		<h3> Favourite Drinks </h3>
+		<p> Spanish latte,A comforting cup of coffee that combines rich espresso with gentle sweetness and creamy milk </p>
+	</div>
+</div>
+
+<footer class="footer">
+	<p>&copy; 2025 Alya Qistina | My Personal Website <p>
+</footer>	
+
+</body> 
+</html> 
+
+
+

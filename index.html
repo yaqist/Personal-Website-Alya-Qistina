@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Homepage</title>
+	<link rel="stylesheet" href="styles.css">
+
+	<style>
+	/* ===== CLOCK STYLE ===== */
+	.clock-box{
+		width: fit-content;
+		margin: 20px auto;
+		padding: 15px 30px;
+		background: white;
+		border-radius: 25px;
+		box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+		text-align: center;
+		animation: float 3s ease-in-out infinite;
+	}
+
+	#clock{
+		font-size: 24px;
+		font-weight: bold;
+		color: deeppink;
+		letter-spacing: 2px;
+	}
+
+	#date{
+		font-size: 13px;
+		color: gray;
+		margin-top: 5px;
+	}
+
+	@keyframes float{
+		0%{ transform: translateY(0); }
+		50%{ transform: translateY(-5px); }
+		100%{ transform: translateY(0); }
+	}
+
+	/* ===== SOCIAL ICON ===== */
+	.social{
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		margin-top: 10px;
+	}
+
+	.social img{
+		width: 35px;
+		height: 35px;
+		transition: transform 0.3s;
+		cursor: pointer;
+	}
+
+	.social img:hover{
+		transform: scale(1.2);
+	}
+
+	.footer{
+		background: hotpink;
+		text-align: center;
+		padding: 10px;
+		color: white;
+	}
+	</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <a href="index.html"> Home </a>
+    <a href="aboutme.html"> About me </a>
+    <a href="family.html"> My Family </a>
+    <a href="education.html"> Education </a>
+    <a href="friends.html"> Friends </a>
+    <a href="favourites.html"> Favourites </a>
+    <a href="gallery.html"> Gallery </a>
+    <a href="experience.html"> Experience </a>
+</div> 
+
+<!-- ===== CLOCK ===== -->
+<div class="clock-box">
+	<div id="clock"></div>
+	<div id="date"></div>
+</div>
+
+
+
+<div class="container">
+
+	<div class="text-section">
+		<h1>WELCOME TO</h1>
+		<h2>Yaqees Website</h2>
+
+		<p>Assalamualaikum and Hi! Welcome to my little corner on the internet.</p>
+
+		<p>
+			Here, I will share my story which is my experience, background,
+			education, hobby and the things I love.
+		</p>
+
+		<p>Explore each section to learn more about who I am.</p>
+	</div>
+
+	<div class="image-section">
+		<img src="image/gambar1.jpeg" alt="Profile Picture">
+		<h3>Reach Me Here</h3>
+
+		<div class="social">
+			<a href="https://www.instagram.com/qstttyy" target="_blank">
+				<img src="image/logo.jpg" alt="Instagram">
+			</a>
+
+			<a href="https://www.tiktok.com/@whosqsty_" target="_blank">
+				<img src="image/tiktok.jpg" alt="TikTok">
+			</a>
+		</div>
+	</div>
+
+</div>
+
+<script>
+
+window.onload = function(){
+	alert("Welcome to Yaqees website! Thanks for visiting my corner of the web");
+
+};
+
+function updateClock(){
+	const now = new Date();
+
+	const time = now.toLocaleTimeString('en-GB');
+	const date = now.toLocaleDateString('en-GB', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric'
+	});
+
+	document.getElementById("clock").innerHTML = time;
+	document.getElementById("date").innerHTML = date;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+<footer class="footer">
+	<p>&copy; 2025 Alya Qistina | My Personal Website</p>
+</footer>
+
+</body>
+</html>
