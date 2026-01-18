@@ -1,286 +1,468 @@
-<!DOCTYPE html > 
-<html> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title> My Gallery </title>
-	<link rel="stylesheet" href="styles.css">
-</head>
+  <meta charset="UTF-8">
+  <title>Gallery | Hattori Coffee</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<body>
-	<style> 
-.gallery-header {
-	text-align: center;
-	padding: 40px 20px;
-}
-.gallery-header h1{
-	font-size: 42px;
-	margin-bottom: 10px;
-	color: maroon;
-}
-.gallery-header p {
-	font-style: italic;
-	color: black
-}
-.gallery-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit,minmax(250px, 1fr));
-	gap: 30px;
-}
-.photo-card{
-	padding: 12px;
-	border-radius: 20px;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-.photo-card img {
-	width: 100%;
-	height: 220px;
-	object-fit: cover;
-	border-radius: 15px;
-}
+  <style>
+    /* --- 1. GLOBAL STYLES --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.footer {
-	background: hotpink;
-	text-align: center;
-	padding: 10px;
-	color: white;
-		
-}
-</style>
-</head>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FDFBF7; /* Cream Lembut */
+      color: #4A3728; /* Coklat Gelap */
+      line-height: 1.7;
+      overflow-x: hidden; /* Elak scroll tepi */
+    }
 
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+    button { font-family: 'Inter', sans-serif; cursor: pointer; }
 
-<body> 
-<div class="navbar">
-    <a href="index.html"> Home </a>
-    <a href="aboutme.html"> About me </a>
-    <a href="family.html"> My Family </a>
-    <a href="education.html"> Education </a>
-    <a href="friends.html"> Friends </a>
-    <a href="favourites.html"> Favourites </a>
-    <a href="gallery.html"> Gallery </a>
-    <a href="experience.html"> Experience </a>
+    /* --- ANIMATIONS (SAMA MACAM PAGE LAIN) --- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* --- 2. HEADER (SAMA DENGAN PAGE LAIN) --- */
+    .header {
+      background: #FDFBF7;
+      padding: 0 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid #EEE5D8;
+      position: sticky; top: 0; z-index: 100;
+      height: 90px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .logo-wrap { flex: 1; }
+    .logo-wrap a { display: flex; align-items: center; gap: 10px; }
+    .logo-wrap img { width: 32px; height: auto; }
+    .logo-wrap span {
+      font-family: 'Playfair Display', serif;
+      color: #4A3728; font-size: 18px; letter-spacing: 1.5px;
+      font-weight: 700; text-transform: uppercase;
+    }
+
+    .nav { flex: 2; display: flex; justify-content: center; gap: 30px; }
+    .nav a {
+      color: #8C7867; font-size: 13px; letter-spacing: 1px; 
+      text-transform: uppercase; font-weight: 600; position: relative;
+    }
+    .nav a::after {
+      content: ''; position: absolute; width: 0; height: 1px;
+      bottom: -4px; left: 0; background-color: #C2A382; transition: 0.3s;
+    }
+    .nav a:hover { color: #C2A382; }
+    .nav a:hover::after { width: 100%; }
+    .nav a.active { color: #4A3728; font-weight: 700; }
+    .nav a.active::after { width: 100%; background-color: #4A3728; }
+
+    .header-clock {
+      flex: 1; display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
+    }
+    .clock-time-wrap { display: flex; align-items: center; gap: 8px; }
+    .h-time { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: #4A3728; line-height: 1; }
+    .h-dot { width: 6px; height: 6px; background: #2D8A4E; border-radius: 50%; animation: blink 2s infinite; }
+    .h-date { font-size: 11px; color: #C2A382; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* --- 3. GALLERY SECTION --- */
+    .gallery-section {
+      padding: 60px 8% 80px 8%;
+      animation: fadeInUp 1s ease-out 0.2s backwards; /* ANIMATION APPLIED HERE */
+    }
+
+    .gallery-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      text-align: center;
+      margin-bottom: 10px;
+      font-style: italic;
+      color: #2D241E;
+    }
+
+    .gallery-subtitle {
+      text-align: center;
+      color: #8C7867;
+      font-size: 14px;
+      max-width: 600px;
+      margin: 0 auto 50px auto;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- MODERN BENTO GRID --- */
+    .gallery-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      grid-auto-rows: 300px; 
+      gap: 25px; 
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid #EEE5D8;
+      background: #fff;
+      transition: all 0.4s ease;
+    }
+
+    /* KHAS UNTUK VIDEO PORTRAIT */
+    .gallery-item.video-portrait {
+      grid-row: span 2; 
+      border: 2px solid #C2A382; 
+    }
+
+    .gallery-item img, 
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    /* Hover Effects */
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(74, 55, 40, 0.15);
+    }
     
-</div> 
+    .gallery-item:hover img,
+    .gallery-item:hover video {
+      transform: scale(1.03);
+    }
 
-<div class="gallery-header">
-	<h1> MY LIFE IN PICTURE </h1>
-	<p> start my gallery with me </p>
-</div>
+    /* Overlay Text */
+    .overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(45, 36, 30, 0.9), transparent);
+      padding: 40px 25px 25px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 2; 
+      pointer-events: none;
+    }
+    .gallery-item:hover .overlay { opacity: 1; }
 
-<div class="gallery-box">
-	<div class="gallery-grid">
+    .overlay h3 {
+      color: #FDFBF7;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
 
-		<div class="photo-card">
-			<img src="image/pic1.jpg">
-		</div>
+    /* --- STYLE BUTTON VOLUME --- */
+    .volume-btn {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      display: flex; justify-content: center; align-items: center;
+      transition: 0.3s;
+      color: #4A3728;
+      font-size: 16px;
+    }
+    
+    .volume-btn:hover {
+      background: #fff;
+      transform: scale(1.1);
+      color: #C2A382;
+    }
 
-		<div class="photo-card">
-			<img src="image/pic13.jpg">
-		</div>
+    /* --- 4. LIGHTBOX --- */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(45, 36, 30, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+    }
 
-		<div class="photo-card">
-			<img src="image/pic3.jpg">
-		</div>
+    .lightbox img, 
+    .lightbox video {
+      max-width: 90%;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.3);
+      display: none;
+    }
 
-		<div class="photo-card">
-			<img src="image/pic11.jpg">
-		</div>
+    .close-btn {
+      position: absolute;
+      top: 30px; right: 40px;
+      color: #FDFBF7;
+      font-size: 40px;
+      cursor: pointer;
+      z-index: 1001;
+    }
 
-		<div class="photo-card">
-			<img src="image/pic10.jpg">
-		</div>
+    /* --- 5. FOOTER --- */
+    .footer {
+      background: #2D241E;
+      padding: 80px 8% 30px 8%;
+      color: #FDFBF7;
+      margin-top: 50px;
+    }
+    .footer-content {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px;
+      border-bottom: 1px solid #4A3728; padding-bottom: 50px;
+    }
+    .footer-brand h4 { font-family: 'Playfair Display', serif; font-size: 24px; color: #C2A382; margin-bottom: 15px;}
+    .footer-brand p { color: #D6C7B6; font-size: 14px; max-width: 300px; }
+    .footer-links h4, .footer-contact h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: #C2A382; margin-bottom: 20px; }
+    .footer-links a { color: #D6C7B6; font-size: 14px; display: block; margin-bottom: 10px; }
+    .footer-links a:hover { color: #fff; transform: translateX(5px); }
+    .footer-contact p { color: #D6C7B6; font-size: 14px; margin-bottom: 10px; }
+    .footer-bottom { text-align: center; padding-top: 30px; font-size: 12px; color: #8C7867; }
 
-		<div class="photo-card">
-			<img src="image/pic7.jpg">
-		</div>
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .gallery-container { 
+        grid-template-columns: 1fr; 
+        grid-auto-rows: auto;
+      }
+      .gallery-item, .gallery-item.video-portrait {
+        grid-row: span 1; 
+        height: 350px;
+        min-height: auto;
+      }
+      .gallery-item.video-portrait { height: 500px; }
+      
+      .header { flex-direction: column; height: auto; padding: 20px; gap: 15px; }
+      .nav { flex-wrap: wrap; gap: 15px; }
+      .header-clock { align-items: center; margin-top: 5px; }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+    }
 
-		<div class="photo-card">
-			<img src="image/pic8.jpg">
-		</div>
+  </style>
+</head>
+<body>
 
-		<div class="photo-card">
-			<img src="image/pic9.jpg">
-		</div>
+  <header class="header">
+    <div class="logo-wrap">
+      <a href="index.html">
+        <img src="image/logo.png" alt="logo">
+        <span>HATTORI COFFEE</span>
+      </a>
+    </div>
 
-		<div class="photo-card">
-			<img src="image/pic6.jpg">
-		</div>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About</a>
+        <a href="menu.html">Menu</a>
+        <a href="gallery.html" class="active">Gallery</a> <a href="contact.html">Contact</a>
+        <a href="review.html">Review</a>
+    </nav>
 
-		<div class="photo-card">
-			<img src="image/pic12.jpg">
-		</div>
+    <div class="header-clock">
+      <div class="clock-time-wrap">
+        <div class="h-dot"></div>
+        <span class="h-time" id="headerTime">00:00</span>
+      </div>
+      <span class="h-date" id="headerDate">Loading...</span>
+    </div>
+  </header>
+  
+<section class="gallery-section">
+  <h2 class="gallery-title">Moments at Hattori</h2>
+  <p class="gallery-subtitle">Capturing the warmth, the aroma, and the joy of our coffee community.</p>
 
-		<div class="photo-card">
-			<img src="image/pic2.jpg">
-		</div>
+  <div class="gallery-container">
 
-		<div class="photo-card">
-			<img src="image/pic15.jpg">
-		</div>
+    <div class="gallery-item video-portrait" onclick="openLightbox(this)">
+      <video id="vid1" autoplay muted loop playsinline>
+        <source src="video/vid2.mp4" type="video/mp4">
+      </video>
+      <button class="volume-btn" onclick="toggleMute('vid1', this, event)">
+        <i class="fa-solid fa-volume-xmark"></i>
+      </button>
+      <div class="overlay"><h3>Daily Grind</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="image/pic16.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar1.webp" alt="Interior View">
+      <div class="overlay"><h3>Cozy Corner</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="image/pic17.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar5.webp" alt="Latte Art">
+      <div class="overlay"><h3>Masterpiece</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="image/pic18.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar14.webp" alt="Customer Smiling">
+      <div class="overlay"><h3>Good Vibes</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="images2/pic19.jpg">
-		</div>
+    <div class="gallery-item video-portrait" onclick="openLightbox(this)">
+      <video id="vid2" autoplay muted loop playsinline>
+        <source src="video/vid1.mp4" type="video/mp4">
+      </video>
+      <button class="volume-btn" onclick="toggleMute('vid2', this, event)">
+        <i class="fa-solid fa-volume-xmark"></i>
+      </button>
+      <div class="overlay"><h3>Ambience at Hattori</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="images2/pic40.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar10.webp" alt="Coffee Brewing">
+      <div class="overlay"><h3>Brewing Process</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="images2/pic21.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar13.webp" alt="Iced Coffee">
+      <div class="overlay"><h3>Iced Series</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="images2/pic27.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar25.jpg" alt="Coffee Beans">
+       <div class="overlay"><h3>Ocean View</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="images2/pic31.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar18.webp" alt="Sunset">
+       <div class="overlay"><h3>Evening Glow</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="images2/pic34.jpg">
-		</div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="image/gambar26.jpg" alt="New Image">
+       <div class="overlay"><h3>Beach</h3></div>
+    </div>
 
-		<div class="photo-card">
-			<img src="images2/pic35.jpg">
-		</div>
+  </div>
+</section>
 
-		<div class="photo-card">
-			<img src="images2/pic37.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic38.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic36.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic28.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic22.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic33.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="image/pic14.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic21.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic43.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic42.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic41.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic43.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic44.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic45.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic51.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic54.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic63.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic57.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic60.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic61.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic62.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic53.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic65.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic50.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic64.jpg">
-		</div>
-
-		<div class="photo-card">
-			<img src="images2/pic58.jpg">
-		</div>
-
-
-	</div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <span class="close-btn">&times;</span>
+  <img id="lightbox-img" src="" alt="Gallery Preview">
+  <video id="lightbox-video" controls playsinline></video>
 </div>
 
 <footer class="footer">
-	<p>&copy; 2025 Alya Qistina | My Personal Website <p>
-</footer>	
+  <div class="footer-content">
+    <div class="footer-brand">
+      <h4>Hattori Coffee</h4>
+      <p>Fresh Coffee & Pastries, Every Day. Come for the brew, stay for the view.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Our Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="footer-contact">
+      <h4>Visit Us</h4>
+      <p>Pantai Kemayang, Bachok, Kelantan</p>
+      <p>Open Daily: 3:30 PM - 11:00 PM</p>
+      <p>+60 11-2096 7674</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Hattori Coffee. All Rights Reserved.</p>
+  </div>
+</footer>
 
+<script>
+  // --- 1. JAM HEADER LOGIC ---
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    document.getElementById('headerTime').textContent = `${hours}:${minutes} ${ampm}`;
+    document.getElementById('headerDate').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
+  }
+  setInterval(updateClock, 1000); 
+  updateClock(); 
+
+  // --- 2. GALLERY & LIGHTBOX LOGIC ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxVideo = document.getElementById('lightbox-video');
+
+  function openLightbox(element) {
+    const img = element.querySelector('img');
+    const vid = element.querySelector('video');
+    
+    // Reset dulu
+    lightboxImg.style.display = 'none';
+    lightboxVideo.style.display = 'none';
+    lightboxVideo.pause();
+
+    if (img) {
+      // Kalau gambar
+      lightboxImg.src = img.src; 
+      lightboxImg.style.display = 'block';
+    } else if (vid) {
+      // Kalau video
+      const source = vid.querySelector('source').src;
+      lightboxVideo.src = source;
+      lightboxVideo.style.display = 'block';
+      lightboxVideo.play(); // Auto play bila buka besar
+    }
+
+    lightbox.style.display = 'flex'; 
+    document.body.style.overflow = 'hidden'; 
+  }
+
+  function closeLightbox(event) {
+    // Kalau klik kat background atau X
+    if (event.target !== lightboxImg && event.target !== lightboxVideo) {
+      lightbox.style.display = 'none';
+      lightboxVideo.pause(); // Stop video bunyi
+      document.body.style.overflow = 'auto'; 
+    }
+  }
+
+  // Tambah parameter 'event' kat hujung
+  function toggleMute(videoId, btn, event) {
+    // ELAKKAN trigger function openLightbox bila tekan button
+    event.stopPropagation(); 
+
+    var video = document.getElementById(videoId);
+    var icon = btn.querySelector('i');
+
+    if (video.muted) {
+      video.muted = false; 
+      icon.classList.remove('fa-volume-xmark');
+      icon.classList.add('fa-volume-high');
+      btn.style.background = "#fff"; 
+      btn.style.color = "#C2A382";
+    } else {
+      video.muted = true;  
+      icon.classList.remove('fa-volume-high');
+      icon.classList.add('fa-volume-xmark');
+      btn.style.background = "rgba(255, 255, 255, 0.8)";
+      btn.style.color = "#4A3728";
+    }
+  }
+</script>
 
 </body>
-</html> 
-
-
-
-	
-
-
-
-
-
-
-
-
+</html>

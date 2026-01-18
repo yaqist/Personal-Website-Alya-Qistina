@@ -1,151 +1,336 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Homepage</title>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Homepage | Hattori Coffee</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-	<style>
-	/* ===== CLOCK STYLE ===== */
-	.clock-box{
-		width: fit-content;
-		margin: 20px auto;
-		padding: 15px 30px;
-		background: white;
-		border-radius: 25px;
-		box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-		text-align: center;
-		animation: float 3s ease-in-out infinite;
-	}
+  <style>
+    /* --- 1. GLOBAL STYLES --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #FDFBF7; color: #4A3728; line-height: 1.7; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
 
-	#clock{
-		font-size: 24px;
-		font-weight: bold;
-		color: deeppink;
-		letter-spacing: 2px;
-	}
+    /* --- ANIMATIONS --- */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes blink { 50% { opacity: 0; } }
 
-	#date{
-		font-size: 13px;
-		color: gray;
-		margin-top: 5px;
-	}
+    /* --- 2. HEADER --- */
+    .header {
+      background: #FDFBF7; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid #EEE5D8; position: sticky; top: 0; z-index: 100; height: 90px; animation: fadeInUp 0.8s ease-out;
+    }
+    .logo-wrap { flex: 1; }
+    .logo-wrap a { display: flex; align-items: center; gap: 10px; }
+    .logo-wrap img { width: 32px; height: auto; }
+    .logo-wrap span { font-family: 'Playfair Display', serif; color: #4A3728; font-size: 18px; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; }
+    
+    .nav { flex: 2; display: flex; justify-content: center; gap: 25px; } 
+    .nav a { color: #8C7867; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; position: relative; }
+    .nav a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #C2A382; transition: 0.3s; }
+    .nav a:hover { color: #C2A382; } .nav a:hover::after { width: 100%; }
+    
+    .header-clock { flex: 1; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; }
+    .clock-time-wrap { display: flex; align-items: center; gap: 8px; }
+    .h-time { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: #4A3728; line-height: 1; }
+    .h-dot { width: 6px; height: 6px; background: #2D8A4E; border-radius: 50%; animation: blink 2s infinite; }
+    .h-date { font-size: 11px; color: #C2A382; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
 
-	@keyframes float{
-		0%{ transform: translateY(0); }
-		50%{ transform: translateY(-5px); }
-		100%{ transform: translateY(0); }
-	}
+    /* --- 3. HERO SECTION --- */
+    .hero {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 40px 8% 80px 8%; 
+      min-height: 85vh; gap: 60px;
+    }
 
-	/* ===== SOCIAL ICON ===== */
-	.social{
-		display: flex;
-		justify-content: center;
-		gap: 15px;
-		margin-top: 10px;
-	}
+    /* KIRI: TEKS */
+    .hero-text { flex: 1.1; max-width: 550px; animation: fadeInUp 1s ease-out 0.2s backwards; }
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 64px);
+      line-height: 1.1; color: #2D241E; margin-bottom: 25px; font-style: italic;
+    }
+    .hero-text p { color: #8C7867; line-height: 1.8; margin-bottom: 40px; font-size: 16px; }
 
-	.social img{
-		width: 35px;
-		height: 35px;
-		transition: transform 0.3s;
-		cursor: pointer;
-	}
+    /* KANAN: VISUAL */
+    .hero-visuals {
+      flex: 1; display: flex; flex-direction: column; gap: 25px; 
+      animation: fadeInUp 1s ease-out 0.4s backwards;
+    }
 
-	.social img:hover{
-		transform: scale(1.2);
-	}
+    .visual-card {
+      width: 100%; border-radius: 20px; overflow: hidden;
+      border: 1px solid #EEE5D8;
+      box-shadow: 15px 15px 0px #EEE5D8; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+    .visual-card:hover { transform: translateY(-8px); box-shadow: 20px 20px 0px #E0D0C0; }
 
-	.footer{
-		background: hotpink;
-		text-align: center;
-		padding: 10px;
-		color: white;
-	}
-	</style>
+    .image-part { height: 250px; }
+    .image-part img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .video-part { height: 280px; }
+    .video-part video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    
+    /* Overlay Button */
+    .video-overlay {
+      position: absolute; bottom: 15px; left: 20px;
+      background: rgba(255,255,255,0.9); padding: 5px 15px; border-radius: 20px;
+      font-size: 12px; font-weight: 600; color: #4A3728; pointer-events: none; z-index: 5;
+    }
+    .mute-btn {
+      position: absolute; top: 15px; right: 15px;
+      width: 35px; height: 35px; border-radius: 50%; border: none;
+      background: rgba(255, 255, 255, 0.85); color: #4A3728;
+      cursor: pointer; display: flex; justify-content: center; align-items: center;
+      transition: all 0.3s ease; z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .mute-btn:hover { background: #fff; color: #C2A382; transform: scale(1.1); }
+
+    /* --- 4. JAM AUTOMATIK CARD --- */
+    .hours-section {
+      max-width: 450px; background: #FFFFFF; border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(74, 55, 40, 0.08); border: 1px solid #EEE5D8;
+      overflow: hidden; margin-top: 20px; transition: transform 0.3s;
+    }
+    .hours-section:hover { transform: translateY(-2px); }
+
+    .hours-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 25px; cursor: pointer; background: #fff; transition: background 0.2s;
+    }
+    .hours-header:hover { background: #fafafa; }
+    .header-left { display: flex; align-items: center; gap: 15px; }
+    .status { padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .status.closed { background: #FFF0F0; color: #D64545; border: 1px solid #FFD6D6; }
+    .status.open { background: #F0FFF4; color: #2D8A4E; border: 1px solid #D6FFDE; }
+    .today-summary { font-size: 14px; font-weight: 600; color: #4A3728; }
+    .arrow-icon { font-size: 12px; color: #C2A382; transition: transform 0.3s ease; }
+    .hours-section.active .arrow-icon { transform: rotate(180deg); }
+    .hours-content { display: none; padding: 0 25px 25px 25px; background: #fff; border-top: 1px solid #f5f5f5; animation: slideDown 0.4s ease; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .hours-table th { text-align: left; font-size: 11px; text-transform: uppercase; color: #C2A382; padding-bottom: 12px; letter-spacing: 1px; }
+    .hours-table td { padding: 10px 0; font-size: 14px; color: #5d4d41; border-bottom: 1px dashed #eee; }
+    .hours-table td:last-child, .hours-table th:last-child { text-align: right; }
+    .hours-table tr.highlight-today td { color: #4A3728; font-weight: 700; background-color: #FDFBF7; padding-left: 10px; padding-right: 10px; border-radius: 8px; }
+    .closed-day { color: #D64545 !important; font-style: italic; opacity: 0.8; }
+
+    /* --- 5. FOOTER & SOCIALS --- */
+    .footer { background: #2D241E; padding: 80px 8% 30px 8%; color: #FDFBF7; margin-top: 50px; }
+    .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid #4A3728; }
+    .footer-brand h4 { font-family: 'Playfair Display', serif; font-size: 24px; color: #C2A382; margin-bottom: 15px;}
+    .footer-brand p { color: #D6C7B6; font-size: 14px; max-width: 300px; line-height: 1.6; }
+    
+    /* Social Icons Styling */
+    .social-icons { display: flex; gap: 15px; margin-top: 25px; }
+    .social-icons a {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid #6B5A4D; color: #D6C7B6;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; transition: all 0.3s ease;
+    }
+    .social-icons a:hover {
+      background: #C2A382; border-color: #C2A382; color: #2D241E; transform: translateY(-3px);
+    }
+
+    .footer-links h4, .footer-contact h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: #C2A382; margin-bottom: 20px; }
+    .footer-links a { color: #D6C7B6; font-size: 14px; display: block; margin-bottom: 10px; }
+    .footer-contact p { color: #D6C7B6; font-size: 14px; margin-bottom: 10px; }
+    .footer-bottom { text-align: center; padding-top: 20px; font-size: 12px; color: #8C7867; }
+
+    /* RESPONSIVE */
+    @media(max-width: 900px){
+      .header { flex-direction: column; height: auto; padding: 20px; gap: 15px; }
+      .nav { flex-wrap: wrap; gap: 15px; }
+      
+      .hero { flex-direction: column-reverse; padding: 40px 8%; text-align: center; gap: 40px;}
+      .hero-text { max-width: 100%; }
+      .hours-section { margin: 0 auto; text-align: left; }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .social-icons { justify-content: center; } /* Center social icons di mobile */
+      .image-part, .video-part { height: 220px; }
+    }
+  </style>
 </head>
 
-<body>
+<body> 
+  
+<header class="header">
+  <div class="logo-wrap">
+    <a href="index.html">
+      <img src="image/logo.png" alt="logo">
+      <span>HATTORI COFFEE</span>
+    </a>
+  </div>
+  <nav class="nav">
+      <a href="index.html" style="color: #4A3728;">Home</a>
+      <a href="aboutus.html">About</a>
+      <a href="menu.html">Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="review.html">Review</a> 
+  </nav>
+  <div class="header-clock">
+    <div class="clock-time-wrap">
+      <div class="h-dot"></div>
+      <span class="h-time" id="headerTime">00:00</span>
+    </div>
+    <span class="h-date" id="headerDate">Loading...</span>
+  </div>
+</header>
 
-<div class="navbar">
-    <a href="index.html"> Home </a>
-    <a href="aboutme.html"> About me </a>
-    <a href="family.html"> My Family </a>
-    <a href="education.html"> Education </a>
-    <a href="friends.html"> Friends </a>
-    <a href="favourites.html"> Favourites </a>
-    <a href="gallery.html"> Gallery </a>
-    <a href="experience.html"> Experience </a>
-</div> 
+<section class="hero">
+  <div class="hero-text">
+    <h1>Fresh Coffee<br>& Pastries,<br>Every Day</h1>
 
-<!-- ===== CLOCK ===== -->
-<div class="clock-box">
-	<div id="clock"></div>
-	<div id="date"></div>
-</div>
+    <p>
+      A cozy neighborhood spot where specialty espresso meets
+      warm flaky croissants. Order ahead, skip the line, and savor the moment at Pantai Kemayang.
+    </p>
 
+    <section class="hours-section" id="hoursCard">
+      <div class="hours-header" onclick="toggleHours()">
+        <div class="header-left">
+           <span id="statusBadge" class="status closed">Checking...</span> 
+          <span id="statusSummary" class="today-summary">Loading...</span>
+        </div>
+        <span class="arrow-icon">▼</span>
+      </div>
 
+      <div id="hoursContent" class="hours-content">
+        <table class="hours-table">
+          <thead><tr><th>Day</th><th>Opening Hours</th></tr></thead>
+          <tbody>
+            <tr id="day-0"><td>Sunday</td><td>3:30 PM - 11:00 PM</td></tr>
+            <tr id="day-1"><td>Monday</td><td>3:30 PM - 11:00 PM</td></tr>
+            <tr id="day-2"><td>Tuesday</td><td>3:30 PM - 11:00 PM</td></tr>
+            <tr id="day-3"><td>Wednesday</td><td class="closed-day">Closed</td></tr> 
+            <tr id="day-4"><td>Thursday</td><td>3:30 PM - 11:00 PM</td></tr>
+            <tr id="day-5"><td>Friday</td><td>4:00 PM - 12:00 AM</td></tr>
+            <tr id="day-6"><td>Saturday</td><td>3:30 PM - 11:00 PM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 
-<div class="container">
-
-	<div class="text-section">
-		<h1>WELCOME TO</h1>
-		<h2>Yaqees Website</h2>
-
-		<p>Assalamualaikum and Hi! Welcome to my little corner on the internet.</p>
-
-		<p>
-			Here, I will share my story which is my experience, background,
-			education, hobby and the things I love.
-		</p>
-
-		<p>Explore each section to learn more about who I am.</p>
-	</div>
-
-	<div class="image-section">
-		<img src="image/gambar1.jpeg" alt="Profile Picture">
-		<h3>Reach Me Here</h3>
-
-		<div class="social">
-			<a href="https://www.instagram.com/qstttyy" target="_blank">
-				<img src="image/logo.jpg" alt="Instagram">
-			</a>
-
-			<a href="https://www.tiktok.com/@whosqsty_" target="_blank">
-				<img src="image/tiktok.jpg" alt="TikTok">
-			</a>
-		</div>
-	</div>
-
-</div>
-
-<script>
-
-window.onload = function(){
-	alert("Welcome to Yaqees website! Thanks for visiting my corner of the web");
-
-};
-
-function updateClock(){
-	const now = new Date();
-
-	const time = now.toLocaleTimeString('en-GB');
-	const date = now.toLocaleDateString('en-GB', {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric'
-	});
-
-	document.getElementById("clock").innerHTML = time;
-	document.getElementById("date").innerHTML = date;
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-</script>
+  <div class="hero-visuals">
+    <div class="visual-card image-part">
+      <img src="image/index.jpg" alt="Coffee Aesthetic">
+    </div>
+    
+    <div class="visual-card video-part">
+      <video id="heroVideo" autoplay muted loop playsinline>
+        <source src="video/vid3.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+      <button class="mute-btn" onclick="toggleHeroMute(this)">
+        <i class="fa-solid fa-volume-xmark"></i>
+      </button>
+      <div class="video-overlay">The Vibe</div>
+    </div>
+  </div>
+</section>
 
 <footer class="footer">
-	<p>&copy; 2025 Alya Qistina | My Personal Website</p>
+  <div class="footer-content">
+    
+    <div class="footer-brand">
+      <h4>Hattori Coffee</h4>
+      <p>Fresh Coffee & Pastries, Every Day. Come for the brew, stay for the view.</p>
+      
+      <div class="social-icons">
+        <a href="https://www.tiktok.com/@hattorithebookcafe_?_r=1&_t=ZS-93AsRqrURbF" target="_blank" aria-label="TikTok">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://www.instagram.com/hattoricoffeepantaikemayang?igsh=cDFxdzF2ZDI3cTZp&utm_source=qr" target="_blank" aria-label="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Our Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Visit Us</h4>
+      <p>Pantai Kemayang, Bachok, Kelantan</p>
+      <p>Open Daily: 3:30 PM - 11:00 PM</p>
+      <p>+60 11-2096 7674</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Hattori Coffee. All Rights Reserved.</p>
+  </div>
 </footer>
+
+<script>
+// --- JS FUNCTIONALITY ---
+function updateClock() {
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12; hours = hours ? hours : 12; 
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  document.getElementById('headerTime').textContent = `${hours}:${minutes} ${ampm}`;
+  document.getElementById('headerDate').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
+}
+setInterval(updateClock, 1000); updateClock(); 
+
+function toggleHeroMute(btn) {
+  const video = document.getElementById('heroVideo');
+  const icon = btn.querySelector('i');
+  if (video.muted) { video.muted = false; icon.className = 'fa-solid fa-volume-high'; } 
+  else { video.muted = true; icon.className = 'fa-solid fa-volume-xmark'; }
+}
+
+function toggleHours() {
+  const content = document.getElementById("hoursContent");
+  const card = document.getElementById("hoursCard");
+  if (content.style.display === "block") { content.style.display = "none"; card.classList.remove("active"); } 
+  else { content.style.display = "block"; card.classList.add("active"); }
+}
+
+function checkOpeningStatus() {
+  const now = new Date(); const day = now.getDay(); const hours = now.getHours(); const minutes = now.getMinutes();
+  const currentTime = hours + (minutes / 60);
+  const schedule = { 0: { open: 15.5, close: 23.0 }, 1: { open: 15.5, close: 23.0 }, 2: { open: 15.5, close: 23.0 }, 3: null, 4: { open: 15.5, close: 23.0 }, 5: { open: 16.0, close: 24.0 }, 6: { open: 15.5, close: 23.0 } };
+  const todaySchedule = schedule[day]; const badge = document.getElementById("statusBadge"); const summary = document.getElementById("statusSummary");
+  for(let i=0; i<7; i++){ document.getElementById(`day-${i}`).classList.remove("highlight-today"); }
+  document.getElementById(`day-${day}`).classList.add("highlight-today");
+  let isOpen = false;
+  if (todaySchedule) { if (currentTime >= todaySchedule.open && currentTime < todaySchedule.close) { isOpen = true; } }
+  if (isOpen) {
+    badge.textContent = "Open"; badge.className = "status open"; 
+    let closeTimeRaw = todaySchedule.close; let ampm = closeTimeRaw >= 12 && closeTimeRaw < 24 ? "PM" : "AM";
+    let displayClose = closeTimeRaw > 12 ? closeTimeRaw - 12 : closeTimeRaw; if(closeTimeRaw === 24) { displayClose = 12; ampm = "AM"; } 
+    summary.textContent = `Closes at ${displayClose}:00 ${ampm}`;
+  } else {
+    badge.textContent = "Closed"; badge.className = "status closed"; 
+    if (todaySchedule && currentTime < todaySchedule.open) {
+        let openTime = todaySchedule.open > 12 ? (todaySchedule.open - 12) : todaySchedule.open;
+        let minutesPart = (todaySchedule.open % 1) * 60; let displayMin = minutesPart === 0 ? "00" : minutesPart;
+        let displayHour = Math.floor(openTime); summary.textContent = `Opens ${displayHour}:${displayMin} PM`;
+    } else { summary.textContent = "See you soon!"; }
+  }
+}
+checkOpeningStatus(); 
+</script>
 
 </body>
 </html>

@@ -1,89 +1,264 @@
-body{
-	font-family: Georgia, serif;
-	margin: 0;
-	background: linear-gradient(to bottom, lightpink,deeppink);
+/* Import Google Fonts yang lebih aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,600;1,400&display=swap');
 
-
-}
-.navbar {
-
-	background: linear-gradient(135deg,deeppink,hotpink);
-	padding: 18px 0;
-	text-align: center;
-	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-	position: sticky;
-	top: 0;
-	z-index: 100;
-
-}
-.navbar a {
-	display: inline-block;
-	padding: 12px 22px;
-	margin: 0 8px;
-	text-decoration: none;
-	font-weight: bold;
-	color: white;
-	border-radius: 25px;
-	transition: all 0.3s ease;
-}
-.navbar a:hover {
-	background-color: white;
-	color: deepink;
-	transform: translateY(-3px);
-
-}
-.container{
-	display: flex;
-	justify-content: space-between;
-	padding: 60px;
-	background-color: white;
-	margin: 40px;
-	border-radius: 25px;
-}
-.text-section{
-	width: 55%;
-
-	
-}
-.text-section h1 {
-	color: black;
-	font-size: 40px;
-}
-.text-section h2 {
-	color: lightpink;
-	font-size: 50px;
-	font-style: italic;
-
-}
-.text-section p{
-	font-size: 16px;
-	line-height: 1.6;
-	color: black;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.image-section {
-	width: 35%;
-	background-color: brown;
-	padding: 20px;
-	border-radius: 20px;
-	text-align: center;
-	color: whitesmoke;
+body {
+    font-family: 'Inter', sans-serif;
+    /* Guna kod hex untuk warna cream yang lebih cantik */
+    background: #FDFBF7; 
+    color: #4A3728;
+    line-height: 1.6;
 }
-.image-section img{
-	width: 100%;
-	border-radius: 14px;
+
+/* --- HEADER SECTION --- */
+.header {
+    background: #FDFBF7; /* Putih bersih atau ikut warna body */
+    padding: 25px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #EEE5D8; /* Garis nipis estetik */
+}
+
+/* --- BAHAGIAN LOGO YANG DIKECILKAN --- */
+.logo-wrap img {
+    width: 28px; /* Sebelum ini 38px, dikecilkan ke 28px */
+    height: auto;
+    object-fit: contain;
+}
+
+.logo-wrap span {
+    font-family: 'Playfair Display', serif;
+    color: #4A3728;
+    font-size: 16px; /* Sebelum ini 18px-20px, dikecilkan ke 16px */
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.logo-wrap a {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Rapatkan sikit jarak antara icon & teks */
+    text-decoration: none;
 
 }
 
-.image-section h3{
-	margin-top: 15px;
-
+.nav a {
+    color: #8C7867;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    text-transform: uppercase;
 }
+
+.nav a:hover {
+    color: #C2A382;
+}
+
+.nav .order-btn {
+    background: #C2A382;
+    padding: 10px 24px;
+    border-radius: 50px; /* Lebih bulat lebih moden */
+    color: white !important;
+    margin-left: 30px;
+    box-shadow: 0 4px 15px rgba(194, 163, 130, 0.2);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    padding: 80px 8%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    min-height: 85vh;
+}
+
+.hero-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 64px); /* Saiz dinamik */
+    line-height: 1.1;
+    color: #2D241E;
+    margin-bottom: 25px;
+    font-style: italic; /* Menambah vibe aesthetic */
+}
+
+.hero-text p {
+    color: #8C7867;
+    font-size: 16px;
+    max-width: 450px;
+    margin-bottom: 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.btn-primary {
+    background: #4A3728;
+    color: #FDFBF7 !important;
+    text-decoration: none;
+    padding: 15px 35px;
+    border-radius: 50px;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(74, 55, 40, 0.15);
+}
+
+/* --- STATS / BADGES --- */
+.hero-stats {
+    display: flex;
+    gap: 12px;
+}
+
+.hero-stats span {
+    background: #F3EFE9;
+    color: #8C7867;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border: 1px solid #E5DED3;
+}
+
+/* --- IMAGE SECTION --- */
+.hero-image {
+    position: relative;
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: 30px; /* Lebih lembut */
+    box-shadow: 20px 20px 0px #F3EFE9; /* Frame aesthetic belakang gambar */
+}
+
+/* --- RESPONSIVE --- */
+@media(max-width: 900px){
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    .hero-text p {
+        margin: 0 auto 40px auto;
+    }
+
+    .hero-buttons, .hero-stats {
+        justify-content: center;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+    /* --- FOOTER SECTION --- */
 .footer {
-	background: lightpink;
-	color: white;
-	text-align: center;
-	padding: 25px 0;
-	font-size: 15px;
-	letter-spacing: 1px;
-	border-top: 3px solid mistyrose;
+    background: #F8F4EF; /* Warna beige cair yang sangat lembut */
+    padding: 60px 8% 20px 8%;
+    border-top: 1px solid #EEE5D8;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #8C7867;
+    max-width: 250px;
+    line-height: 1.6;
+}
+
+.footer-links h4, 
+.footer-contact h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #4A3728;
+    margin-bottom: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+    text-decoration: none;
+    color: #8C7867;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-links ul li a:hover {
+    color: #C2A382;
+    padding-left: 5px;
+}
+
+.footer-contact p {
+    font-size: 14px;
+    color: #8C7867;
+    margin-bottom: 8px;
+}
+
+.socials {
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.socials a {
+    text-decoration: none;
+    color: #4A3728;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #C2A382;
+}
+
+.footer {
+    background: #2D241E; /* Coklat sangat gelap */
+    padding: 60px 8% 20px 8%;
+    color: #FDFBF7; /* Tukar teks jadi cerah supaya nampak */
+    margin-top: 50px;
+}
+
+.footer-links h4, 
+.footer-contact h4,
+.footer-brand span {
+    color: #C2A382 !important; /* Warna emas/tan untuk tajuk */
+}
+
+.footer-links ul li a,
+.footer-brand p,
+.footer-contact p {
+    color: #D6C7B6; /* Teks pudar sikit supaya nampak mahal */
+}
+
+.footer-bottom {
+    border-top: 1px solid #4A3728;
+    color: #8C7867;
+}

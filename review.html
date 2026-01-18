@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reviews | Hattori Coffee</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    /* --- 1. GLOBAL STYLES --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FDFBF7; /* Cream Lembut */
+      color: #4A3728; /* Coklat Gelap */
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: 'Inter', sans-serif; }
+
+    /* --- ANIMATIONS --- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* --- 2. HEADER (SAMA DENGAN PAGE LAIN) --- */
+    .header {
+      background: #FDFBF7;
+      padding: 0 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid #EEE5D8;
+      position: sticky; top: 0; z-index: 100;
+      height: 90px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .logo-wrap { flex: 1; }
+    .logo-wrap a { display: flex; align-items: center; gap: 10px; }
+    .logo-wrap img { width: 32px; height: auto; }
+    .logo-wrap span {
+      font-family: 'Playfair Display', serif;
+      color: #4A3728; font-size: 18px; letter-spacing: 1.5px;
+      font-weight: 700; text-transform: uppercase;
+    }
+
+    .nav { flex: 2; display: flex; justify-content: center; gap: 30px; }
+    .nav a {
+      color: #8C7867; font-size: 13px; letter-spacing: 1px; 
+      text-transform: uppercase; font-weight: 600; position: relative;
+    }
+    .nav a::after {
+      content: ''; position: absolute; width: 0; height: 1px;
+      bottom: -4px; left: 0; background-color: #C2A382; transition: 0.3s;
+    }
+    .nav a:hover { color: #C2A382; }
+    .nav a:hover::after { width: 100%; }
+    .nav a.active { color: #4A3728; font-weight: 700; }
+    .nav a.active::after { width: 100%; background-color: #4A3728; }
+
+    .header-clock {
+      flex: 1; display: flex; flex-direction: column; align-items: flex-end; justify-content: center;
+    }
+    .clock-time-wrap { display: flex; align-items: center; gap: 8px; }
+    .h-time { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: #4A3728; line-height: 1; }
+    .h-dot { width: 6px; height: 6px; background: #2D8A4E; border-radius: 50%; animation: blink 2s infinite; }
+    .h-date { font-size: 11px; color: #C2A382; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+
+    /* --- 3. REVIEW SECTION --- */
+    .review-section {
+      padding: 60px 8% 80px 8%;
+      text-align: center;
+      min-height: 80vh;
+      animation: fadeInUp 1s ease-out 0.2s backwards;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif; font-size: 48px;
+      margin-bottom: 10px; font-style: italic; color: #2D241E;
+    }
+
+    .page-subtitle {
+      color: #8C7867; font-size: 14px; margin-bottom: 50px;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- REVIEW FORM (CARD STYLE) --- */
+    .review-form-container {
+      max-width: 600px;
+      margin: 0 auto 60px;
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+      border: 1px solid #EEE5D8;
+    }
+
+    .review-form-container h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; color: #4A3728; margin-bottom: 20px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%; padding: 15px;
+      background: #FDFBF7;
+      border: 1px solid #EEE5D8;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; color: #4A3728;
+      margin-bottom: 15px;
+      transition: 0.3s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none; border-color: #C2A382; background: #fff;
+    }
+
+    .form-textarea { resize: none; height: 100px; }
+
+    /* --- REAL STAR STYLING --- */
+    .stars {
+      display: flex; justify-content: center; gap: 8px; margin-bottom: 25px;
+    }
+    
+    .stars span {
+      font-size: 35px; 
+      cursor: pointer; 
+      color: #E0E0E0; /* Warna kelabu (belum pilih) */
+      transition: color 0.2s;
+    }
+
+    /* Warna bila aktif (Emas) */
+    .stars span.active {
+      color: #FFC107; /* Kuning Emas Real */
+      text-shadow: 0px 2px 5px rgba(255, 193, 7, 0.4); 
+    }
+
+    /* Warna bila hover */
+    .stars span:hover {
+      color: #FFD54F; 
+    }
+
+    .btn-submit {
+      width: 100%; padding: 15px;
+      background: #4A3728; /* Dark Brown Button */
+      color: #fff;
+      border: none; border-radius: 8px;
+      font-size: 14px; font-weight: bold;
+      text-transform: uppercase; letter-spacing: 1px;
+      transition: 0.3s;
+    }
+    .btn-submit:hover {
+      background: #C2A382; transform: translateY(-2px);
+    }
+
+    /* --- REVIEW LIST GRID --- */
+    .review-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .review-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      border: 1px solid #EEE5D8;
+      text-align: left;
+      transition: transform 0.3s ease;
+      animation: fadeInUp 0.5s ease backwards;
+    }
+
+    .review-card:hover { transform: translateY(-5px); }
+
+    .card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 15px; border-bottom: 1px solid #F7F2EB; padding-bottom: 10px;
+    }
+
+    .card-header h4 {
+      font-family: 'Playfair Display', serif; font-size: 18px; color: #4A3728;
+    }
+
+    .card-stars { 
+        color: #FFC107; 
+        font-size: 16px; 
+        letter-spacing: 2px; 
+    }
+
+    .review-card p {
+      font-size: 14px; color: #6D5D50; line-height: 1.6; font-style: italic;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      background: #2D241E;
+      padding: 80px 8% 30px 8%;
+      color: #FDFBF7;
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px;
+      padding-bottom: 40px; border-bottom: 1px solid #4A3728;
+      text-align: left;
+    }
+
+    .footer-brand h4 { font-family: 'Playfair Display', serif; font-size: 24px; color: #C2A382; margin-bottom: 15px;}
+    .footer-brand p { color: #D6C7B6; font-size: 14px; max-width: 300px; line-height: 1.6; }
+
+    .footer-links h4, .footer-contact h4 { font-family: 'Playfair Display', serif; font-size: 18px; color: #C2A382; margin-bottom: 20px; }
+    .footer-links a { color: #D6C7B6; font-size: 14px; display: block; margin-bottom: 10px; }
+    .footer-links a:hover { color: #fff; transform: translateX(5px); }
+    .footer-contact p { color: #D6C7B6; font-size: 14px; margin-bottom: 10px; }
+    .footer-bottom { text-align: center; padding-top: 20px; font-size: 12px; color: #8C7867; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .header { flex-direction: column; height: auto; padding: 20px; gap: 15px; }
+      .nav { flex-wrap: wrap; gap: 15px; }
+      .header-clock { align-items: center; margin-top: 5px; }
+
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .review-form-container { padding: 30px 20px; }
+      .review-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo-wrap">
+      <a href="index.html">
+        <img src="image/logo.png" alt="logo">
+        <span>HATTORI COFFEE</span>
+      </a>
+    </div>
+
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About</a>
+        <a href="menu.html">Menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="review.html" class="active">Review</a> </nav>
+
+    <div class="header-clock">
+      <div class="clock-time-wrap">
+        <div class="h-dot"></div>
+        <span class="h-time" id="headerTime">00:00</span>
+      </div>
+      <span class="h-date" id="headerDate">Loading...</span>
+    </div>
+  </header>
+
+<section class="review-section">
+  <h2 class="page-title">Customer Reviews</h2>
+  <p class="page-subtitle">We value your feedback. Tell us about your Hattori experience.</p>
+
+  <div class="review-form-container">
+    <h3>Write a Review</h3>
+    
+    <input type="text" id="name" class="form-input" placeholder="Your Name" required>
+    
+    <div class="stars" id="starRating">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+
+    <textarea id="reviewText" class="form-textarea" placeholder="Share your experience... (e.g., Delicious latte!)"></textarea>
+    
+    <button class="btn-submit" onclick="submitReview()">Submit Review</button>
+  </div>
+
+  <div class="review-list" id="reviewList">
+    
+    <div class="review-card">
+      <div class="card-header">
+        <h4>Sarah A.</h4>
+        <div class="card-stars">★★★★★</div>
+      </div>
+      <p>"Such a calming place! The Coffee is incredibly smooth, and the ambience is perfect for reading."</p>
+    </div>
+
+    <div class="review-card">
+      <div class="card-header">
+        <h4>Haziq Daniel</h4>
+        <div class="card-stars">★★★★</div> </div>
+      <p>"Great coffee and friendly staff. Love the Japanese minimalistic vibe."</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <h4>Hattori Coffee</h4>
+      <p>Fresh Coffee & Pastries, Every Day. Come for the brew, stay for the view.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Our Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="footer-contact">
+      <h4>Visit Us</h4>
+      <p>Pantai Kemayang, Bachok, Kelantan</p>
+      <p>Open Daily: 3:30 PM - 11:00 PM</p>
+      <p>+60 11-2096 7674</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Hattori Coffee. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // --- 1. JAM HEADER ---
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; 
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    document.getElementById('headerTime').textContent = `${hours}:${minutes} ${ampm}`;
+    document.getElementById('headerDate').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
+  }
+  setInterval(updateClock, 1000); 
+  updateClock(); 
+
+  // --- 2. LOGIC REVIEW SYSTEM ---
+  let rating = 0;
+  const stars = document.querySelectorAll(".stars span");
+
+  // Load Review dari LocalStorage bila page dibuka
+  document.addEventListener("DOMContentLoaded", loadReviews);
+
+  // Logic Klik Bintang
+  stars.forEach((star, index) => {
+    star.addEventListener("click", () => {
+      rating = star.dataset.value;
+      updateStars(rating);
+    });
+  });
+
+  function updateStars(count) {
+    stars.forEach((s, i) => {
+        if(i < count) {
+            s.classList.add("active"); // Tambah warna kuning
+        } else {
+            s.classList.remove("active"); // Balik warna kelabu
+        }
+    });
+  }
+
+  // Logic Submit Review
+  function submitReview(){
+    const name = document.getElementById("name").value;
+    const text = document.getElementById("reviewText").value;
+
+    if(name === "" || text === "" || rating === 0){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Please complete name, message & select a star rating!',
+        confirmButtonColor: '#4A3728',
+        background: '#FDFBF7',
+        color: '#4A3728'
+      });
+      return;
+    }
+
+    // Buat Object Review
+    const newReview = {
+      name: name,
+      text: text,
+      rating: rating
+    };
+
+    // Simpan ke LocalStorage
+    saveReviewToStorage(newReview);
+
+    // Paparkan di Skrin
+    addReviewToDOM(newReview);
+
+    // Reset Form
+    document.getElementById("name").value="";
+    document.getElementById("reviewText").value="";
+    rating = 0;
+    updateStars(0);
+    
+    // Success Alert
+    Swal.fire({
+      icon: 'success',
+      title: 'Review Submitted!',
+      text: 'Thank you for your feedback.',
+      confirmButtonColor: '#4A3728',
+      background: '#FDFBF7',
+      color: '#4A3728'
+    });
+  }
+
+  // Fungsi Tambah ke HTML (DOM)
+  function addReviewToDOM(reviewData) {
+    const reviewList = document.getElementById("reviewList");
+    const reviewCard = document.createElement("div");
+    reviewCard.classList.add("review-card");
+
+    // Buat bintang string ikut jumlah rating
+    let starsHTML = "";
+    for(let i=0; i<5; i++) {
+        if(i < reviewData.rating) {
+            starsHTML += "★"; // Bintang Penuh
+        } else {
+            starsHTML += ""; 
+        }
+    }
+
+    reviewCard.innerHTML = `
+      <div class="card-header">
+        <h4>${reviewData.name}</h4>
+        <div class="card-stars">${starsHTML}</div>
+      </div>
+      <p>"${reviewData.text}"</p>
+    `;
+
+    // Letak review baru paling atas
+    reviewList.prepend(reviewCard);
+  }
+
+  // Fungsi Simpan ke Storage (Supaya tak hilang bila refresh)
+  function saveReviewToStorage(reviewData) {
+    let reviews = [];
+    if(localStorage.getItem('hattoriReviews')) {
+      reviews = JSON.parse(localStorage.getItem('hattoriReviews'));
+    }
+    reviews.push(reviewData);
+    localStorage.setItem('hattoriReviews', JSON.stringify(reviews));
+  }
+
+  // Fungsi Load dari Storage
+  function loadReviews() {
+    let reviews = [];
+    if(localStorage.getItem('hattoriReviews')) {
+      reviews = JSON.parse(localStorage.getItem('hattoriReviews'));
+    }
+    // Loop untuk paparkan review
+    reviews.forEach(review => {
+      addReviewToDOM(review);
+    });
+  }
+</script>
+
+</body>
+</html>

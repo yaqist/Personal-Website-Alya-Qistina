@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us | Hattori Coffee</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* --- 1. GLOBAL STYLES --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FDFBF7; /* Cream Lembut */
+      color: #4A3728; /* Coklat Gelap */
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+
+    /* --- 2. ANIMATIONS --- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Animasi untuk butang muzik */
+    @keyframes pulse-music {
+      0% { box-shadow: 0 0 0 0 rgba(194, 163, 130, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(194, 163, 130, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(194, 163, 130, 0); }
+    }
+
+    /* --- 3. HEADER (3 COLUMN LAYOUT) --- */
+    .header {
+      background: #FDFBF7;
+      padding: 0 5%;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      border-bottom: 1px solid #EEE5D8;
+      position: sticky; top: 0; z-index: 100;
+      height: 90px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* KIRI: LOGO */
+    .logo-wrap { flex: 1; }
+    .logo-wrap a { display: flex; align-items: center; gap: 10px; }
+    .logo-wrap img { width: 32px; height: auto; }
+    .logo-wrap span {
+      font-family: 'Playfair Display', serif;
+      color: #4A3728; font-size: 18px; letter-spacing: 1.5px;
+      font-weight: 700; text-transform: uppercase;
+    }
+
+    /* TENGAH: NAVIGATION */
+    .nav { flex: 2; display: flex; justify-content: center; gap: 30px; }
+    .nav a {
+      color: #8C7867; font-size: 13px;
+      letter-spacing: 1px; text-transform: uppercase; font-weight: 600;
+      position: relative;
+    }
+    .nav a::after {
+      content: ''; position: absolute; width: 0; height: 1px;
+      bottom: -4px; left: 0; background-color: #C2A382; transition: 0.3s;
+    }
+    .nav a:hover { color: #C2A382; }
+    .nav a:hover::after { width: 100%; }
+
+    /* Active Link Style */
+    .nav a.active { color: #4A3728; font-weight: 700; }
+    .nav a.active::after { width: 100%; background-color: #4A3728; }
+
+    /* KANAN: JAM & TARIKH */
+    .header-clock {
+      flex: 1; display: flex; flex-direction: column; 
+      align-items: flex-end; 
+      justify-content: center;
+    }
+    .clock-time-wrap { display: flex; align-items: center; gap: 8px; }
+    .h-time {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 600; color: #4A3728;
+      line-height: 1;
+    }
+    .h-dot {
+      width: 6px; height: 6px; background: #2D8A4E; border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+    .h-date {
+      font-size: 11px; color: #C2A382; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;
+    }
+
+    /* --- 4. PAGE TITLE --- */
+    .page-header {
+      text-align: center;
+      padding: 80px 10% 40px 10%;
+      animation: fadeInUp 1s ease-out 0.2s backwards;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 56px);
+      color: #2D241E;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .page-header p {
+      color: #8C7867;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* --- 5. STORY SECTION --- */
+    .story-section {
+      padding: 40px 10% 80px 10%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      animation: fadeInUp 1s ease-out 0.4s backwards;
+    }
+
+    .story-text p {
+      margin-bottom: 25px;
+      color: #5d4d41;
+      text-align: justify;
+    }
+
+    /* Drop Cap Style */
+    .story-text p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      color: #C2A382;
+      float: left;
+      line-height: 0.8;
+      margin-right: 12px;
+      font-weight: 700;
+    }
+
+    .story-image-wrapper { position: relative; }
+    
+    .story-image-wrapper img {
+      width: 100%;
+      border-radius: 30px;
+      box-shadow: 20px 20px 0px #F3EFE9;
+      transition: transform 0.3s ease;
+    }
+    
+    .story-image-wrapper img:hover {
+      transform: translateY(-5px);
+    }
+
+    /* --- 6. VISION & MISSION --- */
+    .vm-section {
+      padding: 80px 10%;
+      background: #FFFFFF;
+      border-top: 1px solid #EEE5D8;
+      animation: fadeInUp 1s ease-out 0.6s backwards;
+    }
+
+    .vm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .vm-card {
+      padding: 40px;
+      background: #FDFBF7;
+      border-radius: 20px;
+      border: 1px solid #EEE5D8;
+      transition: 0.3s;
+    }
+
+    .vm-card:hover {
+      box-shadow: 0 10px 30px rgba(74, 55, 40, 0.08);
+      border-color: #C2A382;
+      transform: translateY(-5px);
+    }
+
+    .vm-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: #4A3728;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .vm-card li {
+      margin-bottom: 12px;
+      color: #665;
+      font-size: 15px;
+      display: flex; 
+      align-items: flex-start;
+    }
+
+    .vm-card li::before {
+      content: "•";
+      color: #C2A382;
+      font-weight: bold;
+      display: inline-block; 
+      width: 1em;
+      margin-left: -1em;
+    }
+    
+    .vm-card ul { padding-left: 1em; }
+
+    /* --- 7. FOOTER --- */
+    .footer {
+      background: #2D241E;
+      padding: 80px 8% 30px 8%;
+      color: #FDFBF7;
+      margin-top: 0;
+    }
+
+    .footer-content {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px;
+      padding-bottom: 50px; border-bottom: 1px solid #4A3728;
+    }
+
+    .footer-brand h4 { font-family: 'Playfair Display', serif; font-size: 24px; color: #C2A382; margin-bottom: 15px;}
+    .footer-brand p { color: #D6C7B6; font-size: 14px; max-width: 300px; }
+
+    /* Social Icons Styling (From Previous Request) */
+    .social-icons { display: flex; gap: 15px; margin-top: 25px; }
+    .social-icons a {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid #6B5A4D; color: #D6C7B6;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; transition: all 0.3s ease;
+    }
+    .social-icons a:hover {
+      background: #C2A382; border-color: #C2A382; color: #2D241E; transform: translateY(-3px);
+    }
+
+    .footer-links h4, .footer-contact h4 {
+      font-family: 'Playfair Display', serif; font-size: 18px; color: #C2A382; margin-bottom: 20px;
+    }
+
+    .footer-links a { color: #D6C7B6; font-size: 14px; display: block; margin-bottom: 10px; }
+    .footer-links a:hover { color: #fff; transform: translateX(5px); }
+    .footer-contact p { color: #D6C7B6; font-size: 14px; margin-bottom: 10px; }
+
+    .footer-bottom { text-align: center; padding-top: 30px; font-size: 12px; color: #8C7867; }
+
+    /* --- STYLE UTK MUSIC BUTTON --- */
+    .music-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: #2D241E;
+      color: #C2A382;
+      border: 2px solid #C2A382;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .music-btn:hover { transform: scale(1.1) rotate(10deg); background: #4A3728; }
+    .music-btn.playing { animation: pulse-music 2s infinite; background: #C2A382; color: #2D241E; }
+
+    /* RESPONSIVE */
+    @media(max-width: 900px){
+      .header { flex-direction: column; height: auto; padding: 20px; gap: 15px; }
+      .nav { flex-wrap: wrap; gap: 15px; }
+      .header-clock { align-items: center; margin-top: 5px; }
+      
+      .story-section { grid-template-columns: 1fr; text-align: center; }
+      .story-text p { text-align: left; }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .social-icons { justify-content: center; }
+      
+      .music-btn { bottom: 20px; right: 20px; width: 45px; height: 45px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo-wrap">
+      <a href="index.html">
+        <img src="image/logo.png" alt="logo">
+        <span>HATTORI COFFEE</span>
+      </a>
+    </div>
+
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html" class="active">About</a> 
+        <a href="menu.html">Menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+        <a href="review.html">Review</a> 
+    </nav>
+
+    <div class="header-clock">
+      <div class="clock-time-wrap">
+        <div class="h-dot"></div>
+        <span class="h-time" id="headerTime">00:00</span>
+      </div>
+      <span class="h-date" id="headerDate">Loading...</span>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <h1>Our Story</h1>
+    <p>Est. 2023 — Pantai Kemayang, Bachok</p>
+  </section>
+
+  <section class="story-section">
+    
+    <div class="story-text">
+      <p>
+        Hattori Coffee is a cafe that opened in March 2023 at Pantai Kemayang, Bachok Kelantan. While delivering good quality coffees and foods, we also want to create good memories for the customer while enjoying the view of the sea. Come and heal your inner self!
+      </p>
+      
+      <p>
+        Located right by the beach, Hattori Coffee combines high-quality beverages with a laid-back coastal vibe that is hard to find elsewhere — making it an ideal destination for the Bachok community and anyone looking for a great hangout spot in Kelantan.
+      </p>
+      
+      <p>
+        More than just coffee, Hattori Coffee also offers a variety of beverages including matcha and non-coffee options, along with Western dishes that are perfect for casual dining with family and friends.
+      </p>
+    </div>
+
+    <div class="story-image-wrapper">
+      <img src="image/gambar24.jpg" alt="Hattori Exterior">
+    </div>
+
+  </section>
+
+  <section class="vm-section">
+    <div class="vm-grid">
+      
+      <div class="vm-card">
+        <h3>Our Vision</h3>
+        <p>
+          To become a beloved coffee destination in Bachok by offering quality beverages, a welcoming atmosphere, and memorable experiences that bring people together.
+        </p>
+      </div>
+
+      <div class="vm-card">
+        <h3>Our Mission</h3>
+        <ul>
+          <li>To serve high-quality coffee and beverages made with care.</li>
+          <li>To create a comfortable and relaxing space for everyone.</li>
+          <li>To offer a diverse menu catering to different tastes.</li>
+          <li>To provide friendly service that makes you feel valued.</li>
+          <li>To contribute positively to the Bachok community.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      
+      <div class="footer-brand">
+        <h4>Hattori Coffee</h4>
+        <p>Fresh Coffee & Pastries, Every Day. Come for the brew, stay for the view.</p>
+        <div class="social-icons">
+          <a href="https://www.tiktok.com/@hattorithebookcafe_?_r=1&_t=ZS-93AsRqrURbF" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/hattoricoffeepantaikemayang?igsh=cDFxdzF2ZDI3cTZp&utm_source=qr" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Our Menu</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Visit Us</h4>
+        <p>Pantai Kemayang, Bachok, Kelantan</p>
+        <p>Open Daily: 3:30 PM - 11:00 PM</p>
+        <p>+60 11-2096 7674</p>
+      </div>
+
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Hattori Coffee. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <audio id="bgmAudio" loop>
+    <source src="music/music1.mp3" type="audio/mp3">
+    </audio>
+
+  <button id="musicToggle" class="music-btn" onclick="toggleMusic()" title="Play Music">
+    <i class="fa-solid fa-music"></i>
+  </button>
+
+  <script>
+    // --- JAM SCRIPT ---
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; 
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      document.getElementById('headerTime').textContent = `${hours}:${minutes} ${ampm}`;
+      document.getElementById('headerDate').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
+    }
+    setInterval(updateClock, 1000); 
+    updateClock(); 
+
+    // --- MUSIC SCRIPT ---
+    function toggleMusic() {
+      const audio = document.getElementById('bgmAudio');
+      const btn = document.getElementById('musicToggle');
+      const icon = btn.querySelector('i');
+
+      if (audio.paused) {
+        audio.play().catch(error => {
+          console.log("Autoplay prevented or file not found: ", error);
+          alert("Sila pastikan fail 'music/music1.mp3' wujud.");
+        });
+        btn.classList.add('playing');
+        icon.className = 'fa-solid fa-pause'; // Tukar ikon jadi Pause
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+        icon.className = 'fa-solid fa-music'; // Tukar ikon jadi Music balik
+      }
+    }
+  </script>
+
+</body>
+</html>
